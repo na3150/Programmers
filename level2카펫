@@ -1,0 +1,14 @@
+#include <iostream>
+#include <vector>
+using namespace std;    
+
+vector<int> solution(int brown, int yellow) {
+    int h = 1; //세로
+    int w = brown / 2 + 1; //가로
+    while (h <= w) //가로의 길이가 세로의 길이보다 길거나 같은 동안
+    {
+        if ((h - 2) * (w - 2) == yellow) return { w,h };
+        w--;
+        h++;
+    }
+}
