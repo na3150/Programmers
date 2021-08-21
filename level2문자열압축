@@ -1,0 +1,36 @@
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+int getLength(string s, int len)
+{
+    vector<string>strs;
+    //len단위로 잘라서 vector에 저장
+    for (int i = 0; i < s.length(); i += len) 
+        strs.push_back(s.substr(i, len));
+    //마지막에 대문자 하나 넣어놓기
+    strs.push_back("A");
+    int count = 1;
+    string Count, result = "";
+    for (int i = 0; i < strs.size(); i += count)
+    {
+        for (int j = i+1 ;j<strs.size();j++)
+            if (strs[i] != strs[j]) {
+                count = j - i;
+                break;
+            }
+        Count = to_string(count);
+        result += (count != 1) ? Count + strs[i] : strs[i]; //count가 1일 때는 추가X
+    }
+    return (count == 1)? result.length() - 1 : result.length()- (Count.length()+1);
+}
+
+int solution(string s) {
+    int Min = 21e8;
+    for (int i = 1; i <= s.length()/ 2 + 1; i++)
+    {
+        int result = getLength(s, i);
+        if (Min  > result) Min =result;
+    }
+    return Min;
+}
