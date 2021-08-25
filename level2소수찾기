@@ -1,0 +1,46 @@
+#include <iostream>
+#include <string>
+#include <cmath>
+#include <vector>
+#include <unordered_map>
+using namespace std;
+int len;
+int cnt; //소수의 개수
+int used[7]; //사용한 숫자인지 판별, numbers의 길이 최대 7
+string nums; //numbers를 전역으로 저장
+unordered_map<int,int>usedPrime; //hash로 저장
+
+bool isPrime(string str)//소수인지 판별
+{
+	if (str == "") return false;
+	int num = stoi(str);
+	if (num < 2) return false;
+	for (int i = 2; i <= sqrt(num); i++)
+		if (num % i == 0) return false;
+	usedPrime[num] = 1;
+	return true;
+}
+void run(int level, string result)
+{
+	if (usedPrime.count(stoi(result)) == 0 && isPrime(result)) cnt++;
+	if (level == len+1) return;
+	for (int i = 0; i < len; i++)
+	{
+		if (used[i] == 1) continue;
+		used[i] = 1;
+		run(level + 1, result + nums[i]);
+		used[i] = 0;
+	}
+}
+int solution(string numbers) {
+	len = numbers.length(); //문자열의 길이
+	nums = numbers;
+	run(0, "0");
+	return cnt;
+}
+
+int main(){
+  
+	cout << solution("011");
+    return 0;
+}
