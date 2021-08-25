@@ -1,0 +1,27 @@
+#include <iostream>
+#include <vector>  
+#include <queue>
+using namespace std;
+
+int solution(vector<int> scoville, int K) {
+    
+    int cnt = 0; //섞은 횟수
+    priority_queue<int, vector<int>,greater<int>>foods; //minHeap 생성
+    for (int i = 0; i < scoville.size(); i++)
+        foods.push(scoville[i]);
+    //나중에 알았는데 priority_queue<int,vector<int>, greater<int>>foods(scoville.begin(),scoville.end()); 
+    //이렇게도 가능하다고 함
+    
+    while (!foods.empty()) 
+    {
+        int a = foods.top();
+        if (foods.size() == 1 && foods.top() < K) return -1; //원소가 하나 남았는데, K미만이면 -1
+        if (a >= K) return cnt; //제일 작은 것이 K이상이면 모두 K이상
+        foods.pop();
+        int b = foods.top();
+        foods.pop();
+        foods.push(a + 2 * b); //음식을 섞어서 push
+        cnt++;
+   }
+    return -1;
+}
