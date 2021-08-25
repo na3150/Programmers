@@ -1,0 +1,47 @@
+#include <iostream>
+#include<vector>
+using namespace std;
+
+int direct[4][2] = { //좌,우,위,아래
+    0,1,
+    0,-1,
+    1,0,
+    -1,0
+};
+struct node {
+    int x, y;
+    int count;
+};
+
+node queue[100] = { 0 };
+int visited[100][100] = { 0 }; //방문한 곳 체크
+int head, tail = 1;
+
+int solution(vector<vector<int> > maps)
+{
+    int width = maps[0].size(); //가로
+    int height = maps.size(); //세로
+    queue[head] = { 0,0,1 }; //(0,0), count
+    visited[0][0] = 1; //출발지 체크
+
+
+    while (head != tail)
+    {
+        node now = queue[head++];
+        if (now.x == height - 1 && now.y == width - 1) return now.count;
+        for (int i = 0; i < 4; i++)
+        {
+            int dx = now.x + direct[i][0];
+            int dy = now.y + direct[i][1];
+            //배열 범위를 벗어나는 경우
+            if (dx < 0 || dy < 0 || dx > height - 1 || dy > width - 1) continue;
+            //벽이 있는 경우
+            if (maps[dx][dy] == 0) continue;
+            //이미 지난곳
+            if (visited[dx][dy] > 0) continue;
+            visited[dx][dy] = 1;
+            queue[tail++] = { dx,dy,now.count + 1 };
+        }
+    }
+    return -1; //도착할 수 없는 경우
+}
