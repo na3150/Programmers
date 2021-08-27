@@ -1,0 +1,51 @@
+#include <string>
+#include <iostream>
+#include <vector>
+using namespace std;
+
+bool check(string str) //올바른 괄호 문자열인지 체크
+{
+    while (1)
+    {
+        int a = -1;
+        a = str.find("()", 0);
+        if (a == -1) break; //()이 더 이상 찾아지지 않으면 break
+        str.erase(a, 2);
+    }
+    return str.length() == 0;
+}
+
+string run(string str) //재귀실행
+{
+    //빈 문자열 반환
+    if (str == "") return str;
+    //문자열 u,v로 분리
+    int count=0,index;
+    for (int i = 0; i < str.length(); i++)
+    {
+        if (str[i] == '(') count++;
+        if (str[i] == ')') count--;
+        if (count == 0) {
+            index = i;
+            break;
+        }
+    }
+    string u = str.substr(0, index+1);
+    string v = str.substr(index + 1);
+    //u가 올바른 괄호문자열일 때
+    if (check(u)) return u + run(v);
+    //u가 올바른 괄호문자열이 아닐 때
+    string s = "(" + run(v) + ")";
+    string resultU= "";
+    for (int i = 1; i < u.size() - 1; i++) //괄호 뒤집기
+    {
+        if (u[i] == '(') resultU += ")";
+        else resultU += "(";
+    }
+    return s + resultU;
+}
+
+string solution(string p) {
+    string answer = run(p);
+    return answer;
+}
