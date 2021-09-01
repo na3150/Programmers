@@ -1,0 +1,38 @@
+#include <string>
+#include <vector>
+#include <algorithm>
+using namespace std;
+int stA,edA,lastAlpha, Max;
+
+void check(string name) //돌아가는게 더 빠른지 검사
+{
+    int len = name.length();
+    int cntA = 0;
+    for (int i = 0; i < len; i++)
+    {
+        if (Max < cntA) { 
+            Max = cntA;
+            stA = i - cntA;
+            edA = i-1;
+        }
+        if (name[i] == 'A') cntA++;
+        else { 
+            cntA = 0;
+            lastAlpha = i;
+        }
+    }
+}
+
+int solution(string name) {
+ 
+    int count;
+    check(name);
+    int a = (stA - 1) * 2 + name.length() - edA - 1; //오른쪽 먼저
+    int b = 1 + 2 * (name.length() - 2 - edA) + stA; //왼쪽 먼저
+    count = min(a,b); 
+    count = min(count,lastAlpha);
+    if (Max == 0) count = lastAlpha; //'A'가 한개도 없을 때
+    for (int i = 0; i < name.length(); i++)
+        count += min(name[i] - 'A', 'Z' - name[i] + 1);
+    return count;
+}
