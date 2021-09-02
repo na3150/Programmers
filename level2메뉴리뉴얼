@@ -1,0 +1,60 @@
+#include <string>
+#include <vector>
+#include <algorithm>
+#include <unordered_map>
+using namespace std;
+vector<string>combination; //가능한 조합
+vector<string>result; //최종 답
+unordered_map<string, int>usedOrders; //사용된 주문조합
+int used[10]; //dfs용
+
+void dfs(string str, int start, int level, string orders) //조합 저장
+{
+    if (str.length() == level)
+    {
+        sort(str.begin(), str.end()); //정렬 후 삽입
+        combination.push_back(str);
+        return;
+    }
+    for (int i = start ; i < orders.size(); i++)
+    {
+        if (used[i]) continue;
+        used[i] = 1;
+        dfs(str + orders[i],i, level, orders);
+        used[i] = 0;
+    }
+}
+
+void findCourse()
+{
+    unordered_map<string, int>h;
+    int Max = 0;
+    for (int i = 0; i < combination.size(); i++) //가장 많이 사용된 것 찾기
+    {
+        h[combination[i]]++;
+        if (Max < h[combination[i]]) { 
+            Max = h[combination[i]]; 
+        }
+    }
+    if (Max < 2) return; //최소 2명이상에게 주문되었어야함
+    for (int i = 0; i < combination.size(); i++)
+    {
+        string str = combination[i];
+        if (h[str] == Max && usedOrders[str] == 0) {
+            result.push_back(str);
+            usedOrders[str] = 1;
+        }
+    } //코스저장
+    combination.erase(combination.begin(),combination.end()); //combination 초기화
+}
+
+vector<string> solution(vector<string> orders, vector<int> course) {
+    for (int i = 0; i < course.size(); i++)
+    {
+        for (int j = 0; j < orders.size(); j++)
+            dfs("", 0, course[i], orders[j]);
+        findCourse();
+    }
+    sort(result.begin(), result.end());
+    return result;
+}
