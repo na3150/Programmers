@@ -1,0 +1,36 @@
+#include <string>
+#include <vector>
+#include <unordered_map>
+using namespace std;
+vector<string>result;
+unordered_map<string, string>h; //{uid, name} => hash는 중복된 값을 허용하지 않는 다는 점을 이용
+
+void check(string str) {
+    int fBlank = str.find(" "); //1번째 공백찾기
+    int sBlank = str.find(" ", fBlank+1); //2번째 공백 찾기
+    string uid = str.substr(fBlank + 1, sBlank - fBlank - 1);
+    string name = str.substr(sBlank + 1); //이름 찾기
+    if (str.find("Enter") != -1) { //입장했을 때
+        result.push_back(uid + "님이 들어왔습니다.");
+        h[uid] = name;
+   }
+    else if (str.find("Leave") != -1) { //나갔을 때
+        string luid = str.substr(fBlank + 1);
+        result.push_back(luid + "님이 나갔습니다.");
+    }
+    else { //변경할 때
+        h[uid] = name;
+    }
+}
+
+vector<string> solution(vector<string> record) {
+    for (int i = 0; i < record.size(); i++)
+        check(record[i]);
+    for (int i = 0; i < result.size(); i++) //uid를 이름으로 변경
+    {
+        int a = result[i].find("님");
+        string uid = result[i].substr(0, a);
+        result[i].replace(0, a, h[uid]);
+    }
+    return result;
+}
