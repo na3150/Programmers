@@ -1,9 +1,8 @@
 #include <string>
 #include <vector>
 #include <unordered_map>
-#include <cmath>
 using namespace std;
-vector<string>used; //영어 끝말잇기
+vector<string>used; 
 unordered_map<string, int>h; //hash로 이미 사용한 단어 검사
 
 bool checkLast(string str) //이전 마지막 단어와 같은지
@@ -17,7 +16,6 @@ vector<int> solution(int n, vector<string> words) {
     vector<int> answer = { 0,0 };
     for (int i = 0; i < words.size(); i++)
     {
-
         if (i > 0 && (h.count(words[i])> 0 || checkLast(words[i]) == 0)) { //조건에 어긋나면 
             answer = { i % n + 1, i / n + 1 };//사람의 번호
             return answer; //발견되면 바로 리턴
