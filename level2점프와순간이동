@@ -1,0 +1,12 @@
+#include <iostream>
+using namespace std;
+
+int solution(int n)
+{
+    int cnt = 1; //건전지 사용량: 처음에 한칸 점프로 시작
+    while (n > 1) {
+        if (n % 2 == 1) cnt++; //홀수이면 1더해줌
+        n /= 2;
+    }
+    return cnt;
+}
