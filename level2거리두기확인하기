@@ -1,0 +1,41 @@
+#include <string>
+#include <vector>
+using namespace std;
+
+int direct[5][2] = { 0,1, 1,0, -1,0, 0,-1 ,0,0}; //0,0은 바로 붙어있는 경우
+
+bool checkPartition(vector<string>places, int x, int y)
+{
+    for (int i = 0; i < 4; i++) {
+        int dx = x + direct[i][0];
+        int dy = y + direct[i][1];
+        if (dx < 0 || dy < 0 || dx >= places.size() || dy >= places[0].size()) continue; //배열범위 검사
+        if(places[dx][dy] != 'X') //파티션이 없는 쪽만 검사
+            for (int j = 0; j < 5; j++)
+            {
+                int nx = dx + direct[j][0];
+                int ny = dy + direct[j][1];
+                if (nx < 0 || ny < 0 || nx >= places.size() || ny >= places[0].size()) continue; //배열범위 검사
+                if (nx == x && ny == y) continue; //자신 P는 지나감
+                if (places[nx][ny] == 'P') return 0; //맨헤튼 거리내에서 발견되면 바로 return
+            }
+    }
+    return 1;
+}
+
+bool check( vector<string>places) {
+    for (int i = 0; i <places.size(); i++)
+        for (int j = 0; j < places[0].size(); j++)
+            if (places[i][j] == 'P') {
+                if (checkPartition(places, i, j) == 0) return 0;
+            }
+    return 1;
+}
+
+vector<int> solution(vector<vector<string>>places) { //세로,가로
+
+    vector<int>answer(places.size());
+    for (int i = 0; i < places.size(); i++)
+        answer[i] = check(places[i])? 1:0;
+    return  answer;
+}
