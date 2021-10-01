@@ -1,0 +1,29 @@
+#include <map>
+#include <string>
+#include <algorithm>
+#include <vector>
+using namespace std;
+
+bool compare(pair<string, int>v1, pair<string, int>v2) {
+    return v1.second > v2.second;
+}
+
+vector<int> solution(string s) {
+    string result = "";
+    map<string,int>h;
+    for (int i = 2; i < s.length() - 1; i++)
+    {
+        if (s[i] >= '0' && s[i] <= '9')  result += s[i]; 
+        else if (result.length() >0)
+        { 
+            h[result]++;
+            result = "";
+        }
+    }
+    vector<pair<string, int>>vect(h.begin(), h.end());
+    sort(vect.begin(), vect.end(), compare);
+    vector<int>answer;
+    for (int i = 0; i < vect.size(); i++)
+        answer.push_back(stoi(vect[i].first));
+    return answer;
+}
