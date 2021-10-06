@@ -1,0 +1,43 @@
+#include <string>
+#include <algorithm>
+#include <unordered_map>
+using namespace std;
+
+int solution(string str1, string str2) {
+    //소문자 변환
+    transform(str1.begin(), str1.end(), str1.begin(), ::tolower);
+    transform(str2.begin(), str2.end(), str2.begin(), ::tolower);
+    unordered_map<string, int>h1;
+    unordered_map<string, int>h2;
+
+    //hash에 저장
+    for (int i = 0; i < str1.length(); i++) {
+        string result = str1.substr(i, 2);
+        if (isalpha(result[0]) && isalpha(result[1])) h1[result]++;
+    }
+    for (int i = 0; i < str2.length(); i++) {
+        string result = str2.substr(i, 2);
+        if (isalpha(result[0]) && isalpha(result[1])) h2[result]++;
+    }
+
+    int hap=0, gop=0; //합집합, 곱집합 개수
+    vector<string>same; //겹치는것 str 저장
+
+    for (auto i : h1) {
+        if (h2.count(i.first) > 0) same.push_back(i.first); 
+        else hap += h1[i.first]; //안겹치는거는 합집합에 저장
+    }
+
+    for (int i = 0; i < same.size(); i++) {
+        gop += min(h1[same[i]], h2[same[i]]); //작은것을 곱집합에
+        hap += max(h1[same[i]], h2[same[i]]); //큰것을 합집합에
+        h2[same[i]] = 0; //계산 후 0으로 초기화
+    }
+
+    for (auto i : h2) {
+        if (h2[i.first] > 0) hap += h2[i.first];
+    }
+    if (hap == 0 && gop == 0) return 65536;
+    double jc = double(gop) / double(hap);
+    return jc*65536;
+}
