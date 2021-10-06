@@ -38,6 +38,5 @@ int solution(string str1, string str2) {
         if (h2[i.first] > 0) hap += h2[i.first];
     }
     if (hap == 0 && gop == 0) return 65536;
-    double jc = double(gop) / double(hap);
-    return jc*65536;
+    return double(gop) / double(hap)*65536;
 }
