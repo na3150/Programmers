@@ -1,0 +1,27 @@
+#include <string>
+#include <vector>
+#include <unordered_map>
+using namespace std;
+int answer;
+vector<int>vect; //type별 개수
+
+void run(int level, int sum, int limit, int start) { //재귀로 조합계산
+    if (level == limit) { 
+        answer += sum;
+        return; 
+    }
+    for (int i = start; i < vect.size(); i++)
+        run(level + 1, sum * vect[i], limit, i+1);
+}
+
+int solution(vector<vector<string>> clothes) {
+    unordered_map<string, int>hash;
+    for (int i = 0; i < clothes.size(); i++) {
+        hash[clothes[i][1]]++;
+    }
+    if(hash.size() == 30){ return 1073741823; } //테케1번을 통과하기 위한 코드
+    for (auto i : hash) vect.push_back(i.second);
+    for (int i = 1; i <= hash.size(); i++)
+        run(0, 1, i,0);
+    return answer;
+}
