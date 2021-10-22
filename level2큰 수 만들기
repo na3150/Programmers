@@ -1,0 +1,18 @@
+#include <string>
+#include <vector>
+using namespace std;
+
+string solution(string number, int k) {
+    int count = 0; //제거한 숫자의 개수
+    int t = 0;
+    while (count < k && t < number.length()) {
+        if (number[t] < number[t + 1]) {
+            number.erase(t, 1); //뒤에 숫자가 더 크면 제거
+            count++;
+            t = 0; //다시 0부터 검사
+        }
+        else t++;
+    }
+    if (count != k) number.erase(number.end() - (k - count)); //모두 검사후 숫자가 순차적으로 감소하면 뒤에서부터 k-count개 제거
+    return number;
+}
