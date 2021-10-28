@@ -1,0 +1,14 @@
+#include <vector>
+#include<algorithm>
+using namespace std;
+
+int solution(vector<int> citations) {
+    int paper = citations.size(); //논문의 수
+    sort(citations.begin(), citations.end());
+    for (int i = 0; i < paper; i++)
+    {
+        int h = paper - i;
+        if (h <= citations[i]) return h;
+    }
+    return 0;
+}
