@@ -1,0 +1,32 @@
+#include <vector>
+#include <string>
+#include <queue>
+using namespace std;
+
+bool isPossible(string before, string after) { //한개만 바꿔서 가능한지 검사
+	int count = 0;
+	for (int i = 0; i < before.size(); i++) {
+		if (before[i] != after[i]) count++;
+	}
+	return count == 1? true: false;
+}
+
+int solution(string begin, string target, vector<string> words) {
+	queue<pair<string, int>>q; //단어, 변환 횟수
+	q.push({ begin,0 });
+	vector<int>used(words.size()); //이미 사용된 것 검사
+	while (!q.empty()) {
+		string now = q.front().first;
+		int nowLevel = q.front().second;
+		q.pop();
+		if (now == target) return nowLevel; //발견되면 바로 return
+		for (int i = 0; i < words.size(); i++) {
+			if (used[i]) continue;
+			if (isPossible(now, words[i])) {
+				q.push({ words[i], nowLevel + 1 });
+				used[i] = 1;
+			}
+		}
+	}
+	return 0; //변환시키지 못하는 경우
+}
