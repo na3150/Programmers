@@ -1,0 +1,34 @@
+#include <vector>
+using namespace std;
+
+int cnt = 0; //가능한 경우의 수
+int tar;
+char path[20];
+char sign[2] = { '+','-' };
+
+int getSum(vector<int>numbers, char path[20]) {
+	int result = 0;
+	for (int i = 0; i < numbers.size(); i++)
+	{
+		if (path[i] == '+') result += numbers[i];
+		else result -= numbers[i];
+	}
+	return result;
+}
+
+void dfs(int level, vector<int>numbers) {
+	if (level == numbers.size()) {
+		if (getSum(numbers, path) == tar) cnt++;
+		return;
+	}
+	for (int i = 0; i < 2; i++) {
+		path[level] = sign[i];
+		dfs(level + 1, numbers);
+	}
+}
+
+int solution(vector<int> numbers, int target) {
+	tar = target;
+	dfs(0, numbers);
+	return cnt;
+}
