@@ -1,0 +1,26 @@
+#include <queue>
+#include <vector>
+using namespace std;
+
+int solution(int bridge_length, int weight, vector<int> truck_weights) {
+    int time = 0;
+    queue<int>bridge; //다리 위에 있는 트럭
+    int sum = 0;
+    int t = 0; //index
+    while (t<truck_weights.size()) {
+        time++; //while문 한번 돌 때마다 1초 추가
+        int car = truck_weights[t];
+        if (bridge.size() == bridge_length) {
+            sum -= bridge.front();
+            bridge.pop();
+        }
+        if (sum + car <= weight) {
+            sum += car;
+            bridge.push(car);
+            t++;
+        }
+        else bridge.push(0); //더 못타는 경우에는 0을 push
+    }
+    time += bridge_length;
+    return time;
+}
