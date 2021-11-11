@@ -21,6 +21,6 @@ int solution(int bridge_length, int weight, vector<int> truck_weights) {
         }
         else bridge.push(0); //더 못타는 경우에는 0을 push
     }
-    time += bridge_length;
+    time += bridge_length; //마지막 트럭 도착시간 추가
     return time;
 }
