@@ -13,7 +13,7 @@ bool isPossible(string before, string after) { //한개만 바꿔서 가능한�
 
 int solution(string begin, string target, vector<string> words) {
 	queue<pair<string, int>>q; //단어, 변환 횟수
-	q.push({ begin,0 });
+	q.push({ begin,0 }); //begin부터 시작
 	vector<int>used(words.size()); //이미 사용된 것 검사
 	while (!q.empty()) {
 		string now = q.front().first;
