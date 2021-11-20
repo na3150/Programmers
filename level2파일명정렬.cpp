@@ -10,12 +10,12 @@ bool compare(string before, string after) {
     string bnum = "";
     string anum = "";
     int blasthead=0, alasthead=0;
-    //head ∫Ò±≥
+    //head ÎπÑÍµê
     for (int i = 0; i < before.length(); i++) {
         if (isdigit(before[i])) {
             blasthead = i;
             break; }
-        bhead += tolower(before[i]);//º“πÆ¿⁄∑Œ ∫Ø»Ø
+        bhead += tolower(before[i]);//ÏÜåÎ¨∏ÏûêÎ°ú Î≥ÄÌôò
     }
     for (int i = 0; i < after.length(); i++) {
         if (isdigit(after[i])) { 
@@ -24,7 +24,7 @@ bool compare(string before, string after) {
         ahead += tolower(after[i]);
     }
     if (bhead != ahead) return bhead < ahead;
-    //number ∫Ò±≥
+    //number ÎπÑÍµê
     for (int i = blasthead; i < before.length(); i++)
     {
         if (isdigit(before[i]))  bnum += before[i];
@@ -36,20 +36,11 @@ bool compare(string before, string after) {
         else break;
     }
     if (stoi(bnum) != stoi(anum)) return stoi(bnum) < stoi(anum);
-    //headøÕ number∞° ∞∞¿∫ ∞ÊøÏ
+    //headÏôÄ numberÍ∞Ä Í∞ôÏùÄ Í≤ΩÏö∞
     return 0;
 }
 
 vector<string> solution(vector<string> files) {
     stable_sort(files.begin(), files.end(), compare);
     return files;
-}
-
-
-int main()
-{
-    vector<string>result = solution({ "img12.png", "img10.png", "img02.png", "img1.png", "IMG01.GIF", "img2.JPG" });
-    for (int i = 0; i < result.size(); i++)
-        cout << result[i] << " ";
-    return 0;
 }
