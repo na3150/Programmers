@@ -12,10 +12,3 @@ int solution(string s)
 	}
 	return st.empty();
 }
-
-int main()
-{
-    int result = solution("baabaa");
-    cout << result;
-    return 0;
-}
