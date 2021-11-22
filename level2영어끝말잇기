@@ -2,6 +2,7 @@
 #include <vector>
 #include <unordered_map>
 using namespace std;
+
 vector<string>used; 
 unordered_map<string, int>h; //hash로 이미 사용한 단어 검사
 
