@@ -26,7 +26,6 @@ int checkHitOrMiss(string city, int cacheSize) {
         h[city] = 1;
         return 5;
     }
-    return 0;
 }
 
 
