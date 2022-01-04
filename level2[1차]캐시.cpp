@@ -43,12 +43,3 @@ int solution(int cacheSize, vector<string> cities) {
         answer += checkHitOrMiss(cities[i], cacheSize);
     return answer;
 }
-
-int main()
-{
-    int result = solution(5, { "A","B","C","B"});
-    cout << result;
-
-
-	return 0;
-}
