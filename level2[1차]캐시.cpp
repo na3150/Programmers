@@ -5,22 +5,22 @@
 #include <vector>
 using namespace std;
 
-vector<string>cache; //Ä³½Ã¹è¿­
-unordered_map<string, int>h; //ÇØ½Ã »ı¼º
+vector<string>cache; //ìºì‹œë°°ì—´
+unordered_map<string, int>h; //í•´ì‹œ ìƒì„±
 
 int checkHitOrMiss(string city, int cacheSize) {
-    //HitÀÏ ¶§
+    //Hitì¼ ë•Œ
     if (h.count(city) > 0) {
-        cache.insert(cache.begin(), city); //¸Ç ¾Õ¿¡ Ãß°¡
+        cache.insert(cache.begin(), city); //ë§¨ ì•ì— ì¶”ê°€
         auto index = find(cache.begin(), cache.end(), city); 
         cache.erase(index , index+ 1);
         return 1;
     }
-    //MissÀÏ ¶§
+    //Missì¼ ë•Œ
     else { 
-        if (cache.size() >= cacheSize) { //Ä³½¬ »çÀÌÁî¸¦ ³Ñ´Â °æ¿ì
-            h.erase(cache[cache.size() - 1]); //ÇØ½Ã¿¡¼­ »èÁ¦
-            cache.erase(cache.end() - 1);  //¸¶Áö¸· ¿ø¼Ò »èÁ¦
+        if (cache.size() >= cacheSize) { //ìºì‰¬ ì‚¬ì´ì¦ˆë¥¼ ë„˜ëŠ” ê²½ìš°
+            h.erase(cache[cache.size() - 1]); //í•´ì‹œì—ì„œ ì‚­ì œ
+            cache.erase(cache.end() - 1);  //ë§ˆì§€ë§‰ ì›ì†Œ ì‚­ì œ
         }
         cache.insert(cache.begin(), city);
         h[city] = 1;
@@ -32,13 +32,13 @@ int checkHitOrMiss(string city, int cacheSize) {
 
 int solution(int cacheSize, vector<string> cities) {
     int answer = 0;
-    //cacheSize°¡ 0ÀÎ °æ¿ì ¸ğµÎ Miss
+    //cacheSizeê°€ 0ì¸ ê²½ìš° ëª¨ë‘ Miss
     if (cacheSize == 0)
         return cities.size() * 5;
-    //¸ğµÎ ¼Ò¹®ÀÚ·Î º¯È¯
+    //ëª¨ë‘ ì†Œë¬¸ìë¡œ ë³€í™˜
     for (int i = 0; i < cities.size(); i++)
         transform(cities[i].begin(), cities[i].end(), cities[i].begin(), ::tolower);
-    //½Ã°£ °è»ê
+    //ì‹œê°„ ê³„ì‚°
     for (int i = 0; i < cities.size(); i++)
         answer += checkHitOrMiss(cities[i], cacheSize);
     return answer;
