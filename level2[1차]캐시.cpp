@@ -19,8 +19,8 @@ int checkHitOrMiss(string city, int cacheSize) {
     //Miss일 때
     else { 
         if (cache.size() >= cacheSize) { //캐쉬 사이즈를 넘는 경우
-            h.erase(cache[cache.size() - 1]); //해시에서 삭제
-            cache.erase(cache.end() - 1);  //마지막 원소 삭제
+            h.erase(cache[cache.size() - 1]); 
+            cache.erase(cache.end() - 1); 
         }
         cache.insert(cache.begin(), city);
         h[city] = 1;
