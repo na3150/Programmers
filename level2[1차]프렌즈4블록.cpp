@@ -4,13 +4,13 @@
 #include <algorithm>
 using namespace std;
 
-set<pair<int, int>>sameBlocks; //2X2³»ÀÇ ÁÂÇ¥ ÀúÀå(Áßº¹X)
+set<pair<int, int>>sameBlocks; //2X2ë‚´ì˜ ì¢Œí‘œ ì €ì¥(ì¤‘ë³µX)
 
 bool compare(pair<int, int > a, pair<int, int>b) {
     return a.second > b.second;
 }
 
-void putCoordinates(int x, int y) { //set¿¡ 4°³ÀÇ ÁÂÇ¥ Ã·°¡
+void putCoordinates(int x, int y) { //setì— 4ê°œì˜ ì¢Œí‘œ ì²¨ê°€
     for (int i = x; i < x + 2; i++)
         for (int j = y; j < y+2; j++)
             sameBlocks.insert({ i,j });
@@ -37,14 +37,14 @@ bool isHaveSameBlocks(vector<vector<string>>map) {
 
 int solution(int m, int n, vector<string> board) {
     int answer = 0;
-    vector<vector<string>>map(n, vector<string>(m));//¿À¸¥ÂÊÀ¸·Î 90µµ È¸ÀüµÈ ¹è¿­
+    vector<vector<string>>map(n, vector<string>(m));//ì˜¤ë¥¸ìª½ìœ¼ë¡œ 90ë„ íšŒì „ëœ ë°°ì—´
     for (int i = 0; i < n; i++)
         for (int j = 0; j < m; j++)
             map[i][j] = board[m - j - 1][n - i- 1];
-    while (isHaveSameBlocks(map)) { //°°Àº ºí·°ÀÌ ¾È ³ª¿Ã ¶§ ±îÁö
+    while (isHaveSameBlocks(map)) { //ê°™ì€ ë¸”ëŸ­ì´ ì•ˆ ë‚˜ì˜¬ ë•Œ ê¹Œì§€
         vector<pair<int, int>>results(sameBlocks.begin(), sameBlocks.end());
-        sort(results.begin(), results.end(), compare); //Á¤·Ä
-        for (auto it : results) //2X2 ºí·° Áö¿ì±â
+        sort(results.begin(), results.end(), compare); //ì •ë ¬
+        for (auto it : results) //2X2 ë¸”ëŸ­ ì§€ìš°ê¸°
             map[it.first].erase(map[it.first].begin() + it.second );
         answer += sameBlocks.size();
         sameBlocks.clear();
