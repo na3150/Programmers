@@ -38,9 +38,11 @@ bool isHaveSameBlocks(vector<vector<string>>map) {
 int solution(int m, int n, vector<string> board) {
     int answer = 0;
     vector<vector<string>>map(n, vector<string>(m));//오른쪽으로 90도 회전된 배열
+    
     for (int i = 0; i < n; i++)
         for (int j = 0; j < m; j++)
             map[i][j] = board[m - j - 1][n - i- 1];
+    
     while (isHaveSameBlocks(map)) { //같은 블럭이 안 나올 때 까지
         vector<pair<int, int>>results(sameBlocks.begin(), sameBlocks.end());
         sort(results.begin(), results.end(), compare); //정렬
