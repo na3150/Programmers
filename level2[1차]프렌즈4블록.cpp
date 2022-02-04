@@ -3,7 +3,6 @@
 #include <set>
 #include <algorithm>
 using namespace std;
-
 set<pair<int, int>>sameBlocks; //2X2내의 좌표 저장(중복X)
 
 bool compare(pair<int, int > a, pair<int, int>b) {
