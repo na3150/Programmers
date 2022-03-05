@@ -1,6 +1,5 @@
 #include <string>
 using namespace std;
-
 long fiboNumber[100001];
 
 int fibo(int n) {
