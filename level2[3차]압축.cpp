@@ -4,7 +4,7 @@
 using namespace std;
 
 unordered_map<string, int>h;
-int cnt = 27; //ÀúÀåÇÒ »öÀÎ ¹øÈ£
+int cnt = 27; //ì €ì¥í•  ìƒ‰ì¸ ë²ˆí˜¸
 
 string findW(string str){
     for (int i = 0; i < str.size(); i++)
@@ -17,16 +17,16 @@ string findW(string str){
 vector<int> solution(string msg) {
     vector<int> answer;
     int index = 0;
-    for (char i = 'A'; i <= 'Z'; i++) //¾ËÆÄºª Ã¤¿ì±â
+    for (char i = 'A'; i <= 'Z'; i++) //ì•ŒíŒŒë²³ ì±„ìš°ê¸°
     {
         string str = "";
         h[str+i] = i - 64;
     }
-    while (index <= msg.size() - 1) {
+    while (index < msg.size()) {
         string w = findW(msg.substr(index));
         answer.push_back(h[w]);
         index += w.size();
-        h[w + msg[index]] = cnt++; //w+c »çÀü Ãß°¡
+        h[w + msg[index]] = cnt++; //w+c ì‚¬ì „ ì¶”ê°€
     }
     return answer;
 }
