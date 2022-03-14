@@ -2,11 +2,11 @@
 #include <bitset>
 using namespace std;
 
-string getBinary(int num) { //ÀÌÁø¼ö·Î ¹İÈ¯ÇÏ´Â ÇÔ¼ö
+string getBinary(int num) { //ì´ì§„ìˆ˜ë¡œ ë°˜í™˜í•˜ëŠ” í•¨ìˆ˜
     return bitset<8>(num).to_string();
 }
 
-int getNumOfOne(string num) { //1ÀÇ °³¼ö ¹İÈ¯ÇÏ´Â ÇÔ¼ö
+int getNumOfOne(string num) { //1ì˜ ê°œìˆ˜ ë°˜í™˜í•˜ëŠ” í•¨ìˆ˜
     int cnt = 0;
     for (int i = 0; i < num.size(); i++)
         if (num[i] == '1') cnt++;
@@ -14,10 +14,11 @@ int getNumOfOne(string num) { //1ÀÇ °³¼ö ¹İÈ¯ÇÏ´Â ÇÔ¼ö
 }
 
 int solution(int n) {
-    int result = n + 1; //ÃÊ±â ¼ıÀÚ
-    int numOfOne = getNumOfOne(getBinary(n)); //nÀÇ 1ÀÇ °³¼ö
+    int result = n + 1; //ì´ˆê¸° ìˆ«ì
+    int numOfOne = getNumOfOne(getBinary(n)); //nì˜ 1ì˜ ê°œìˆ˜
     while (1) {
-        if (getNumOfOne(getBinary(result)) == numOfOne) break;
+        if (getNumOfOne(getBinary(result)) == numOfOne) 
+            break;
         result++;
     }
     return result;
