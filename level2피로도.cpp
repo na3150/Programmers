@@ -6,7 +6,7 @@ int visited[8];
 int Max = -21e8;
 
 void dfs(int level, int pirodo, vector<vector<int>> dungeons) {
-    if (level > Max) Max = level; //탐험한 던전의 수
+    if (level > Max) Max = level; 
 
     for (int i = 0; i < dungeons.size(); i++) {
         if (visited[i] == 1) continue;
