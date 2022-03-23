@@ -7,4 +7,4 @@
 <br>
 
 블로그💻에서 설명과 함께 확인가능👌:
-https://blog.naver.com/nayoung3150
+https://nayoungs.tistory.com/
